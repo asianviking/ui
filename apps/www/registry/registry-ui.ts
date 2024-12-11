@@ -609,4 +609,14 @@ export const ui: Registry = [
       },
     ],
   },
+  {
+    name: "swap",
+    type: "registry:ui",
+    files: [
+      {
+        path: "ui/swap.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
 ]

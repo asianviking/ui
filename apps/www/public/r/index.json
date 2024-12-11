@@ -709,5 +709,15 @@
         "type": "registry:ui"
       }
     ]
+  },
+  {
+    "name": "swap",
+    "type": "registry:ui",
+    "files": [
+      {
+        "path": "ui/swap.tsx",
+        "type": "registry:ui"
+      }
+    ]
   }
 ]

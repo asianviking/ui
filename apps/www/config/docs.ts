@@ -139,6 +139,17 @@ export const docsConfig: DocsConfig = {
       ],
     },
     {
+      title: "Onchain Components",
+      items: [
+        {
+          title: "Swap",
+          href: "/docs/blocks/swap",
+          items: [],
+          label: "Onchain",
+        },
+      ],
+    },
+    {
       title: "Components",
       items: [
         {
