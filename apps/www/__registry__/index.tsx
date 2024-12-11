@@ -3357,6 +3357,22 @@ export const Index: Record<string, any> = {
       subcategory: "",
       chunks: []
     },
+    "swap-demo": {
+      name: "swap-demo",
+      description: "",
+      type: "registry:example",
+      registryDependencies: ["swap"],
+      files: [{
+        path: "registry/new-york/example/swap-demo.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      component: React.lazy(() => import("@/registry/new-york/example/swap-demo.tsx")),
+      source: "",
+      category: "",
+      subcategory: "",
+      chunks: []
+    },
     "_sink": {
       name: "_sink",
       description: "",
@@ -8862,6 +8878,22 @@ export const Index: Record<string, any> = {
       }],
       component: React.lazy(() => import("@/registry/default/block/demo-sidebar-controlled.tsx")),
       source: "__registry__/default/block/demo-sidebar-controlled.tsx",
+      category: "",
+      subcategory: "",
+      chunks: []
+    },
+    "swap-demo": {
+      name: "swap-demo",
+      description: "",
+      type: "registry:example",
+      registryDependencies: ["swap"],
+      files: [{
+        path: "registry/default/example/swap-demo.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      component: React.lazy(() => import("@/registry/default/example/swap-demo.tsx")),
+      source: "",
       category: "",
       subcategory: "",
       chunks: []

@@ -1,0 +1,15 @@
+{
+  "name": "swap-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "swap"
+  ],
+  "files": [
+    {
+      "path": "example/swap-demo.tsx",
+      "content": "import { Swap } from \"@/registry/default/ui/swap\"\n\nconst coins = [\n  { value: \"apple\", name: \"Apple\", image: \"/avatars/01.png\" },\n  { value: \"banana\", name: \"Banana\", image: \"/avatars/02.png\" },\n  {\n    value: \"blueberry\",\n    name: \"Blueberry\",\n    image: \"/avatars/03.png\",\n  },\n]\n\nexport default function SwapDemo() {\n  return <Swap coins={coins} />\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ]
+}

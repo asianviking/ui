@@ -4,11 +4,7 @@ description: A swap component
 component: true
 ---
 
-<ComponentPreview
-  name="swap-demo"
-  className="[&_.preview>[data-orientation=vertical]]:sm:max-w-[70%]"
-  description="A swap demo"
-/>
+<ComponentPreview name="swap-demo" description="A swap demo" />
 
 ## Installation
 
@@ -22,7 +18,7 @@ component: true
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add accordion
+npx ayvee@latest add swap
 ```
 
 </TabsContent>
@@ -80,21 +76,9 @@ module.exports = {
 ## Usage
 
 ```tsx
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
+import { Swap } from "@/components/ui/swap"
 ```
 
 ```tsx
-<Accordion type="single" collapsible>
-  <AccordionItem value="item-1">
-    <AccordionTrigger>Is it accessible?</AccordionTrigger>
-    <AccordionContent>
-      Yes. It adheres to the WAI-ARIA design pattern.
-    </AccordionContent>
-  </AccordionItem>
-</Accordion>
+<Swap coins={[{ value: "apple", name: "Apple", image: "/avatars/01.png" }]} />
 ```

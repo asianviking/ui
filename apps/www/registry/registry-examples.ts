@@ -1742,4 +1742,15 @@ export const examples: Registry = [
       },
     ],
   },
+  {
+    name: "swap-demo",
+    type: "registry:example",
+    registryDependencies: ["swap"],
+    files: [
+      {
+        path: "example/swap-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
 ]

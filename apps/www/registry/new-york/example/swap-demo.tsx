@@ -1,4 +1,4 @@
-import { Swap } from "../ui/swap"
+import { Swap } from "@/registry/new-york/ui/swap"
 
 const coins = [
   { value: "apple", name: "Apple", image: "/avatars/01.png" },
