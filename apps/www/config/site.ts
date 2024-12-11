@@ -1,11 +1,11 @@
 export const siteConfig = {
   name: "onchain/ui",
-  url: "https://ui.ayvee.xyz",
-  ogImage: "https://ui.ayvee.xyz/og.jpg",
+  url: "https://ui.ayvee.dev",
+  ogImage: "https://ui.ayvee.dev/og.jpg",
   description:
     "Beautifully designed onchain components built on top of shadcn/ui that you can copy and paste into your apps. Accessible. Customizable. Open Source.",
   links: {
-    twitter: "https://twitter.com/ayvee_dev",
+    twitter: "https://x.com/ayvee_dev",
     github: "https://github.com/asianviking/ui",
   },
 }
