@@ -12,7 +12,16 @@ export function SiteFooter() {
             rel="noreferrer"
             className="font-medium underline underline-offset-4"
           >
-            shadcn
+            ayvee
+          </a>
+          , a remix of{" "}
+          <a
+            href="https://ui.shadcn.com"
+            target="_blank"
+            rel="noreferrer"
+            className="font-medium underline underline-offset-4"
+          >
+            shadcn/ui
           </a>
           . The source code is available on{" "}
           <a
