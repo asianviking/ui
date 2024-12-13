@@ -1,7 +1,6 @@
 import * as React from "react"
 import Image from "next/image"
-import { cva, type VariantProps } from "class-variance-authority"
-import { ArrowDown } from "lucide-react"
+import { ArrowUpDown } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
@@ -17,125 +16,156 @@ import {
   SelectValue,
 } from "./select"
 
-const swapVariants = cva("relative space-y-2 rounded-2xl p-2", {
-  variants: {
-    variant: {
-      default: "",
-      secondary: "",
-      destructive: "",
-      outline: "",
-    },
-  },
-  defaultVariants: {
-    variant: "default",
-  },
-})
-
-export interface SwapProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof swapVariants> {
-  coins: { value: string; name: string; image: string }[]
+interface Token {
+  name: string
+  address: string
+  symbol: string
+  decimals: number
+  image: string
+  chainId: number
 }
 
-function Swap({ className, variant, coins, ...props }: SwapProps) {
-  const [focused, setFocused] = React.useState<"Sell" | "Buy">("Sell")
+export interface SwapProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+function Swap({ className, children, ...props }: SwapProps) {
   return (
-    <Card {...props} className={cn(swapVariants({ variant }), className)}>
-      <SwapField
-        side="Sell"
-        setFocused={setFocused}
-        focused={focused}
-        coins={coins}
-        defaultCoin={coins[0]}
-      />
-      <Button
-        variant="secondary"
-        size="icon"
-        className="absolute inset-x-1/2 top-[calc(50%-52px)] -translate-x-1/2 border-2 border-card"
-      >
-        <ArrowDown className="h-4 w-4" />
-      </Button>
-      <SwapField
-        side="Buy"
-        setFocused={setFocused}
-        focused={focused}
-        coins={coins}
-      />
-      <Button className="w-full">Get Started</Button>
+    <Card
+      {...props}
+      className={cn("relative w-[420px] space-y-1 rounded-2xl p-2", className)}
+    >
+      {children}
     </Card>
   )
 }
 
+export interface SwapDefaultProps extends React.HTMLAttributes<HTMLDivElement> {
+  tokens: Token[]
+}
+
+function SwapDefault({ tokens }: SwapDefaultProps) {
+  const [focused, setFocused] = React.useState<"Sell" | "Buy">("Sell")
+  return (
+    <Swap>
+      <SwapField
+        label="Sell"
+        setFocused={setFocused}
+        focused={focused}
+        tokens={tokens}
+        defaultToken={tokens[0]}
+      />
+      <SwapToggleButton />
+      <SwapField
+        label="Buy"
+        setFocused={setFocused}
+        focused={focused}
+        tokens={tokens}
+      />
+      <SwapButton className="w-full" />
+    </Swap>
+  )
+}
+
+interface SwapToggleButtonProps
+  extends React.HTMLAttributes<HTMLButtonElement> {
+  variant?: "secondary" | "destructive" | "outline"
+}
+
+function SwapToggleButton({
+  className,
+  variant = "secondary",
+}: SwapToggleButtonProps) {
+  return (
+    <Button
+      variant={variant}
+      size="icon"
+      className={cn(
+        "absolute inset-x-1/2 top-[calc(50%-52px)] -translate-x-1/2 border-2 border-card",
+        className
+      )}
+    >
+      <ArrowUpDown className="h-4 w-4" />
+    </Button>
+  )
+}
+
+interface SwapButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+  variant?: "secondary" | "destructive" | "outline"
+}
+
+function SwapButton({ className, variant }: SwapButtonProps) {
+  return (
+    <Button variant={variant} className={cn(className)}>
+      Get Started
+    </Button>
+  )
+}
+
 interface SwapFieldProps {
-  side?: "Sell" | "Buy"
-  setFocused: (side: "Sell" | "Buy") => void
+  label?: "Sell" | "Buy"
+  setFocused: (label: "Sell" | "Buy") => void
   focused: "Sell" | "Buy"
-  coins: { value: string; name: string; image: string }[]
-  defaultCoin?: { value: string; name: string; image: string }
+  tokens: Token[]
+  defaultToken?: Token
 }
 
 function SwapField({
-  side = "Sell",
+  label = "Sell",
   setFocused,
   focused,
-  coins,
-  defaultCoin,
+  tokens,
+  defaultToken,
 }: SwapFieldProps) {
-  const focusedField = side === focused
+  const focusedField = label === focused
   return (
     <Card
       className={cn("flex gap-1 rounded-lg p-4", !focusedField && "bg-muted")}
-      onFocus={() => setFocused(side)}
+      onFocus={() => setFocused(label)}
     >
       <div className="space-y-2">
-        <div className="text-sm text-muted-foreground">{side}</div>
+        <div className="text-sm text-muted-foreground">{label}</div>
         <Input
           placeholder="0"
-          className="border-none bg-transparent px-0 text-2xl focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 md:text-3xl"
+          className="border-none bg-transparent px-0 text-2xl focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 md:w-56 md:text-3xl"
         />
         <div className="text-sm text-muted-foreground">$0</div>
       </div>
-      <div className="flex items-center">
-        <Select defaultValue={defaultCoin?.value}>
+      <div className="flex w-full flex-col items-end justify-end gap-3">
+        <Select defaultValue={defaultToken?.symbol}>
           <SelectTrigger>
             <SelectValue placeholder="Select token" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              {coins.map((coin) => (
-                <CurrencyItem key={coin.value} coin={coin} />
+              {tokens.map((token) => (
+                <CurrencyItem key={token.symbol} token={token} />
               ))}
             </SelectGroup>
           </SelectContent>
         </Select>
+        <div className="text-sm text-muted-foreground">
+          Balance $0<span className="ml-1 font-bold text-primary">Max</span>
+        </div>
       </div>
     </Card>
   )
 }
 
-function CurrencyItem({
-  coin,
-}: {
-  coin: {
-    value: string
-    name: string
-    image: string
-  }
-}) {
+function CurrencyItem({ token }: { token: Token }) {
   return (
-    <SelectItem value={coin.value} className="gap-2 p-2">
+    <SelectItem value={token.symbol} className="gap-2 p-2">
       <div className="flex items-center gap-2">
-        <Image
-          src={coin.image}
-          alt={coin.name}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={token.image}
+          alt={token.name}
           width={20}
           height={20}
           className="rounded-full"
         />
-        {coin.name}
+        {token.name}
       </div>
     </SelectItem>
   )
 }
 
-export { Swap, swapVariants }
+export { SwapDefault }
